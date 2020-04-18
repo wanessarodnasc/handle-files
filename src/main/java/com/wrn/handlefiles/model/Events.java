@@ -4,79 +4,55 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.UUID;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 
-@Entity
+@Document(collection = "events")
 public class Events implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private UUID id;
+	private String id;
 	
-	@Column
 	private Integer year;
 	
-	@Column
 	private String trimester;
 	
-	@Column
 	private String month;
 	
-	@Column
 	private Integer	day;
 	
-	@Column
 	private String guiche;
 	
-	@Column
 	private LocalDateTime hour;
 	
-	@Column
 	private LocalDateTime hourAgLocal;
 	
-	@Column
 	private String code;
 	
-	@Column
 	private String priority;
 	
-	@Column
 	private String answer;
 	
-	@Column
 	private String section;
 	
-	@Column
 	private String password;
 	
-	@Column
 	private String service;
 	
-	@Column
 	private String eventType;
 	
-	@Column
 	private String attendants;	
 	
-	@Column
 	private String activities;	
 	
-	@Column
 	private String avaliation;	
 	
-	@Column
 	private String category;
 
 	public Events() {
@@ -101,6 +77,7 @@ public class Events implements Serializable {
 		this.activities = convertStringValue(row.getCell(15));
 		this.avaliation = convertStringValue(row.getCell(16));
 		this.category = convertStringValue(row.getCell(17));
+		this.id = password.concat(code).concat(hour.toString());
 	}
 
 	private Integer convertIngerValue(Cell cell) {
@@ -119,5 +96,81 @@ public class Events implements Serializable {
 		String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cell.getDateCellValue());
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		return LocalDateTime.parse(date, formatter);
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public Integer getYear() {
+		return year;
+	}
+
+	public String getTrimester() {
+		return trimester;
+	}
+
+	public String getMonth() {
+		return month;
+	}
+
+	public Integer getDay() {
+		return day;
+	}
+
+	public String getGuiche() {
+		return guiche;
+	}
+
+	public LocalDateTime getHour() {
+		return hour;
+	}
+
+	public LocalDateTime getHourAgLocal() {
+		return hourAgLocal;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public String getPriority() {
+		return priority;
+	}
+
+	public String getAnswer() {
+		return answer;
+	}
+
+	public String getSection() {
+		return section;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public String getService() {
+		return service;
+	}
+
+	public String getEventType() {
+		return eventType;
+	}
+
+	public String getAttendants() {
+		return attendants;
+	}
+
+	public String getActivities() {
+		return activities;
+	}
+
+	public String getAvaliation() {
+		return avaliation;
+	}
+
+	public String getCategory() {
+		return category;
 	}
 }
